@@ -1,0 +1,27 @@
+{
+  "name": "@mattplays/minecraft-api",
+  "version": "0.0.1",
+  "description": "This package is a wrapper for the official Minecraft API",
+  "main": "MinecraftAPI.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattPlays/MinecraftAPI.git"
+  },
+  "keywords": [
+    "Minecraft",
+    "API",
+    "GameAPICenter"
+  ],
+  "author": "MattPlays (https://github.com/MattPlays/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MattPlays/MinecraftAPI/issues"
+  },
+  "homepage": "https://github.com/MattPlays/MinecraftAPI#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}

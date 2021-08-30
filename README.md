@@ -88,8 +88,8 @@ This package is a wrapper for the official Minecraft API
 **This is an Offical API** [Offical Docs](https://wiki.vg/Mojang_API)
 ### Usage <a id="minecraft-usage">
 ```javascript
-const GameAPICenter = require("gameapicenter");
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
+const {MinecraftAPI} = require("@mattplays/minecraft-api")
+const API = new MinecraftAPI();
 ```
 ### Functions <a id="minecraft-functions">
 #### GetAPIStatus <a id="minecraft-getapistatus">
@@ -98,10 +98,12 @@ Returns status of various Mojang services. Possible values are green (no issues)
 The GetAPIStatus function returns a `Promise<ServerStatusResponse>` type
 ##### Usage <a id="minecraft-getapistatus-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.GetAPIStatus().then((data) => {
+const API = new MinecraftAPI();
+API.GetAPIStatus().then((data) => {
 // Your Code Here :D
-});
+}).catch((err) => {
+    // Handle error Here D:
+});;
 ```
 #### Authenticate <a id="minecraft-authenticate">
 Authenticates a user using their password.
@@ -114,10 +116,12 @@ Authenticates a user using their password.
 The Authenticate function returns a `Promise<AuthenticationResponse>` type
 ##### Usage <a id="minecraft-authenticate-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.Authenticate("Notch", "MINECRAFTROCKS").then((data) => {
+const API = new MinecraftAPI();
+API.Authenticate("Notch", "MINECRAFTROCKS").then((data) => {
 // Your Code Here :D
-});
+}).catch((err) => {
+    // Handle error Here D:
+});;
 ```
 #### Refresh <a id="minecraft-refresh">
 Refreshes a valid accessToken. It can be used to keep a user logged in between gaming sessions and is preferred over storing the user's password in a file see [lastlogin](https://wiki.vg/Lastlogin).
@@ -133,10 +137,12 @@ Refreshes a valid accessToken. It can be used to keep a user logged in between g
 The Refresh function returns a `Promise<RefreshResponse>` type
 ##### Usage <a id="minecraft-refresh-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.Refresh("DUMMY_ACCESS-TOKEN", "DUMMY_CLIENT-TOKEN", "DUMMY_PROFILEIDENTIFIER", "DUMMY_PLAYERNAME").then((data) => {
+const API = new MinecraftAPI();
+API.Refresh("DUMMY_ACCESS-TOKEN", "DUMMY_CLIENT-TOKEN", "DUMMY_PROFILEIDENTIFIER", "DUMMY_PLAYERNAME").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### Validate <a id="minecraft-validate">
 Checks if an accessToken is usable for authentication with a Minecraft server. The Minecraft Launcher (as of version 1.6.13) calls this endpoint on startup to verify that its saved token is still usable, and calls /refresh if this returns an error.
@@ -153,10 +159,12 @@ Note that an accessToken may be unusable for authentication with a Minecraft ser
 The Validate functions returns an empty payload (`Promise<any>`)
 ##### Usage <a id="minecraft-validate-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.Validate("DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.Validate("DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### Signout <a id="minecaft-signout">
 Invalidates accessTokens using an account's username and password.
@@ -169,10 +177,12 @@ Invalidates accessTokens using an account's username and password.
 The Signout function returns an empty payload if successful (`Promise<any>`)
 ##### Usage <a id="minecraft-signout-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.Signout("Notch", "Minecraft-ROCKS").then((data) => {
+const API = new MinecraftAPI();
+API.Signout("Notch", "Minecraft-ROCKS").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### Invalidate <a id="minecraft-invalidate">
 Invalidates accessTokens using a client/access token pair.
@@ -185,10 +195,12 @@ Invalidates accessTokens using a client/access token pair.
 The Invalidate function returns an empty payload if successful (`Promise<any>`)
 ##### Usage <a id="minecraft-invalidate-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.Invalidate("DUMMMY_ACCESS-TOKEN", "DUMMY_CLIENT-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.Invalidate("DUMMMY_ACCESS-TOKEN", "DUMMY_CLIENT-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### UsernameToUUID <a id="minecraft-usernametouuid">
 This will return the UUID of the username.
@@ -200,10 +212,12 @@ This will return the UUID of the username.
 The UsernameToUUID function returns a `Promise<UUIDResponse>` type
 ##### Usage <a id="minecraft-usernametouuid-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.UsernameToUUID("Notch").then((data) => {
+const API = new MinecraftAPI();
+API.UsernameToUUID("Notch").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### UsernamesToUUIDs <a id="minecraft-usernamestouuids">
 This will return player UUIDs and some extras.
@@ -215,10 +229,12 @@ This will return player UUIDs and some extras.
 The UsernameToUUID function returns a `Promise<UUIDResponse>` type
 ##### Usage <a id="minecraft-usernamestouuids-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.UsernamesToUUIDs(["Notch", "jeb_"]).then((data) => {
+const API = new MinecraftAPI();
+API.UsernamesToUUIDs(["Notch", "jeb_"]).then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### UUIDToNameHistory <a id="minecraft-uuidtonamehistory">
 Returns all the usernames this user has used in the past and the one they are using currently. The UUID must be given either without, or correctly formatted hyphens.
@@ -227,21 +243,18 @@ Returns all the usernames this user has used in the past and the one they are us
 | ------------- | ------------- | ------------- | ------------- |
 | uuid  | `string`  | Yes | The user's UUID |
 ##### Output <a id="minecraft-uuidtonamehistory-output">
-The UUIDToNameHistory function returns a 
+The UUIDToNameHistory function returns
 ```javascript
-Promise<[
-    {
-        name: string, 
-        changedToAt: number
-    }
-]>
+Promise<{name: string, changedToAt: number}[]>
 ```
 ##### Usage <a id="minecraft-uuidtonamehistory-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.UUIDToNameHistory("069a79f444e94726a5befca90e38aaf5").then((data) => {
+const API = new MinecraftAPI();
+API.UUIDToNameHistory("069a79f444e94726a5befca90e38aaf5").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### UUIDToSkin <a id="minecraft-uuidtoskin">
 This will return the player's username plus any additional information about them (e.g. skins). [Example](https://sessionserver.mojang.com/session/minecraft/profile/4566e69fc90748ee8d71d7ba5aa00d20) **This has no ratelimit**.
@@ -250,27 +263,18 @@ This will return the player's username plus any additional information about the
 | ------------- | ------------- | ------------- | ------------- |
 | uuid  | `string`  | Yes | The user's UUID | 
 ##### Output <a id="minecraft-uuidtoskin-output">
-The UUIDToSkin function returns a 
+The UUIDToSkin function returns
 ```javascript
-Promise<{
-    id: string, 
-    name: string, 
-    properties: [
-        {
-            name: string, 
-            value: string, 
-            signature: string,
-        },
-    ], 
-    legacy: boolean,
-}>
+Promise<{id: string, name: string, properties: {name: string, value: string, signature: string}[], legacy: boolean}>
 ```
 ##### Usage <a id="minecraft-uuidtoskin-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.UUIDToSkin("4566e69fc90748ee8d71d7ba5aa00d20").then((data) => {
+const API = new MinecraftAPI();
+API.UUIDToSkin("4566e69fc90748ee8d71d7ba5aa00d20").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### GetBlockedServers <a id="minecraft-getblockedservers">
 Returns a list of SHA1 hashes used to check server addresses against when the client tries to connect.
@@ -282,10 +286,12 @@ This check is done by the bootstrap class in netty. The default netty class is o
 The GetBlockedServers function returns a `Promise<string[]>` type
 ##### Usage <a id="minecraft-getblockedservers-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.GetBlockedServers().then((data) => {
+const API = new MinecraftAPI();
+API.GetBlockedServers().then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### GetStatistics <a id="minecraft-getstatistics">
 Get statistics on the sales of Minecraft.
@@ -304,10 +310,12 @@ Promise<{
 ```
 ##### Usage <a id="minecraft-getstatistics-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.GetStatistics(["item_sold_minecraft"]).then((data) => {
+const API = new MinecraftAPI();
+API.GetStatistics(["item_sold_minecraft"]).then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### GetProfileInfo <a id="minecraft-getprofileinfo">
 This API endpoint fetches information about the current account including UUID, username, skins, and capes.
@@ -319,10 +327,12 @@ This API endpoint fetches information about the current account including UUID, 
 The GetProfileInfo function returns a `Promise<ProfileInfoResponse>` type
 ##### Usage <a id="minecraft-getprofileinfo-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.GetProfileInfo("DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.GetProfileInfo("DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### GetProfileNameChangeInfo <a id="minecraft-getprofilenamechangeinfo">
 This API endpoint fetches information about the profile name such as the date the name was changed and the date the account was created.
@@ -334,10 +344,12 @@ This API endpoint fetches information about the profile name such as the date th
 The GetProfileNameChangeInfo function returns a `Promise<ProfileNameChangeInfoResponse>` type
 ##### Usage <a id="minecraft-getprofilenamechangeinfo-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.GetProfileNameChangeInfo("DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.GetProfileNameChangeInfo("DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### CheckNameAvailability <a id="minecraft-checknameavailability">
 This API endpoints check if the given name is available.
@@ -355,10 +367,12 @@ Promise<{
 ```
 ##### Usage <a id="minecraft-checknameavailability-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.CheckNameAvailability("Notch", "DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.CheckNameAvailability("Notch", "DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### ChangeName <a id="minecraft-changename">
 This will set the name for the account that the access token in the Authorization header belongs to.
@@ -371,10 +385,12 @@ This will set the name for the account that the access token in the Authorizatio
 The ChangeName function returns a `Promise<ProfileInfoResponse>` type if successful or `Promise<ChangeNameError>` type if not.
 ##### Usage <a id="minecraft-changename-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.ChangeName("Notch", "DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.ChangeName("Notch", "DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### ChangeSkin <a id="minecraft-changeskin">
 This will set the skin for the selected profile, but Mojang's servers will fetch the skin from a URL.
@@ -388,10 +404,12 @@ This will set the skin for the selected profile, but Mojang's servers will fetch
 Upon error, the server will send back a JSON with the error. (Success is a blank payload) `Promise<any>`
 ##### Usage <a id="minecraft-changeskin-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-MinecraftAPI.ChangeSkin("slim", "https://thereisaskinhere.com/minecraft/totallyarealskin.png", "DUMMY_ACCESS-TOKEN").then((data) => {
+const API = new MinecraftAPI();
+API.ChangeSkin("slim", "https://thereisaskinhere.com/minecraft/totallyarealskin.png", "DUMMY_ACCESS-TOKEN").then((data) => {
 // Your Code Here :D
-})
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 #### ResetSkin <a id="minecraft-resetskin">
 Resets the user's skin to the default one.
@@ -404,27 +422,29 @@ Resets the user's skin to the default one.
 No response unless an error occurred.
 ##### Usage <a id="minecraft-resetskin-usage">
 ```javascript
-const MinecraftAPI = new GameAPICenter.MinecraftAPI();
-(async () => {
-await MinecraftAPI.ResetSkin("DUMMY_ACCESS-TOKEN", "069a79f444e94726a5befca90e38aaf5")
-})();
+const API = new MinecraftAPI();
+API.ResetSkin("DUMMY_ACCESS-TOKEN", "069a79f444e94726a5befca90e38aaf5").then(() => {
+    // Your Code Here :D
+}).catch((err) => {
+    // Handle error Here D:
+});
 ```
 ### Return Types <a id="minecraft-returntypes">
 #### ServerStatusResponse <a id="minecraft-returntypes-serverstatusresponse">
 ```typescript
-export type ServerStatusResponse = {
-    "minecraft.net": string,
-    "session.minecraft.net": string,
-    "account.mojang.com": string,
-    "authserver.mojang.com": string,
-    "api.mojang.com": string,
-    "textures.minecraft.net": string,
-    "mojang.com": string
+export interface ServerStatusResponse {
+    "minecraft.net": "green" | "yellow" | "red",
+    "session.minecraft.net": "green" | "yellow" | "red",
+    "account.mojang.com": "green" | "yellow" | "red",
+    "authserver.mojang.com": "green" | "yellow" | "red",
+    "api.mojang.com": "green" | "yellow" | "red",
+    "textures.minecraft.net": "green" | "yellow" | "red",
+    "mojang.com": "green" | "yellow" | "red"
 }
 ```
 #### AuthenticationResponse <a id="minecraft-returntypes-authenticationresponse">
 ```typescript
-export type AuthenticationResponse = {
+export interface AuthenticationResponse {
     user: {
         username: string,
         properties: AuthenticationProperty[],
@@ -438,68 +458,46 @@ export type AuthenticationResponse = {
 ```
 ##### AuthenticationProperty <a id="minecraft-returntypes-authenticationresponse-authenticationproperty">
 ```typescript
-export type AuthenticationProperty = {
+interface AuthenticationProperty {
     name: string,
     value: string
 }
 ```
 ##### AuthenticationProfile <a id="minecraft-returntypes-authenticationresponse-authenticationprofile">
 ```typescript
-export type AuthenticationProfile = {
+interface AuthenticationProfile  {
     name: string,
     id: string
 }
 ```
 #### RefreshResponse <a id="minecraft-returntypes-refreshresponse">
 ```typescript
-export type RefreshResponse = {
+export interface RefreshResponse {
     accessToken: string,
     clientToken: string,
-    selectedProfile: {
-        id: string, 
-        name: string
-    },
-    user: {
-        id: string, 
-        properties: [
-            {
-                name: string, 
-                value: string
-            }, 
-            {
-                name: string, 
-                value: string
-            }
-        ]
-    }
+    selectedProfile: {id: string, name: string},
+    user: {id: string, properties: {name: string, value: string}[]}
 }
 ```
 #### UUIDResponse <a id="minecraft-returntypes-uuidresponse">
 ```typescript
-export type UUIDReponse = {
+export interface UUIDReponse {
     name: string,
     id: string,
 }
 ```
 #### ProfileInfoResponse <a id="minecraft-returntypes-profileinforesponse">
 ```typescript
-export type ProfileInfoResponse = {
+export interface ProfileInfoResponse {
     id: string,
     name: string,
-    skins: [
-        {
-            id: string, 
-            state: string, 
-            url: string, 
-            variant: string
-        }
-    ],
+    skins:  {id: string, state: string, url: string, variant: string}[],
     capes: [];
 }
 ```
 #### ProfileNameChangeInfoResponse <a id="minecraft-returntypes-profilenamechangeinforesponse">
 ```typescript
-export type ProfileNameChangeInfoResponse = {
+export interface ProfileNameChangeInfoResponse {
     changedAt: string,
     createdAt: string,
     nameChangeAllowed: boolean;
